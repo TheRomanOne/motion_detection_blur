@@ -1,0 +1,23 @@
+{
+  "streamer": {
+    "sleep_delay": 0.01
+  },
+  "detector": {
+    "min_contour_area": 5,
+    "frames_to_stabilize": 20,
+    "morph_kernel_size": 5
+  },
+  "display": {
+    "blur_kernel_size": 25,
+    "timestamp": {
+      "position": [10, 30],
+      "font_scale": 0.7,
+      "color": [0, 0, 255],
+      "thickness": 2
+    },
+    "rectangle": {
+      "color": [0, 255, 0],
+      "thickness": 2
+    }
+  }
+} 
