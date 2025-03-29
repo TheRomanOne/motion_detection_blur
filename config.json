@@ -1,4 +1,48 @@
 {
+  "server": {
+    "host": "0.0.0.0",
+    "port": 5000,
+    "upload_folder": "uploads",
+    "max_content_length": 1000,
+    "valid_video_formats": [".mp4", ".avi", ".mov", ".mkv"]
+  },
+  "socket": {
+    "cors_allowed_origins": "*",
+    "async_mode": "eventlet",
+    "ping_timeout": 60,
+    "ping_interval": 25
+  },
+  "client": {
+    "websocket": {
+      "reconnection": true,
+      "reconnection_attempts": 5,
+      "reconnection_delay": 1000,
+      "transports": ["websocket", "polling"]
+    },
+    "upload": {
+      "max_file_size_mb": 500,
+      "progress_notification_interval": 25,
+      "timeout_ms": 300000
+    },
+    "ui": {
+      "max_messages": 100,
+      "encoding_quality": 85
+    }
+  },
+  "processing": {
+    "queue_sizes": {
+      "stream_queue": 10
+    },
+    "progress_reporting": {
+      "ui_update_interval": 10,
+      "log_interval": 50
+    },
+    "sleep_delays": {
+      "frame_processing": 0.05,
+      "empty_queue": 0.01,
+      "paused": 0.1
+    }
+  },
   "streamer": {
     "sleep_delay": 0.01
   },
