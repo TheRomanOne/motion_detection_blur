@@ -14,7 +14,7 @@ from socketio_events import register_socketio_events
 app_config = load_config()
 
 # Extract async mode from config
-async_mode = app_config['socket'].get('async_mode', 'eventlet')
+async_mode = app_config['socket']['async_mode']
 
 # Log startup information
 logger.info(f"Using {async_mode} mode for Socket.IO")
@@ -29,15 +29,15 @@ initialize_app_config(app, app_config)
 socketio = SocketIO(app, 
                    cors_allowed_origins=app_config['socket']['cors_allowed_origins'], 
                    async_mode=async_mode,
-                   ping_timeout=app_config['socket'].get('ping_timeout', 60),
-                   ping_interval=app_config['socket'].get('ping_interval', 25))
+                   ping_timeout=app_config['socket']['ping_timeout'],
+                   ping_interval=app_config['socket']['ping_interval'])
 
 # Register routes and socket event handlers
 register_routes(app, socketio, app_config)
 register_socketio_events(socketio)
 
 if __name__ == '__main__':
-    host = app_config['server'].get('host', '0.0.0.0')
-    port = app_config['server'].get('port', 5000)
+    host = app_config['server']['host']
+    port = app_config['server']['port']
     logger.info(f"Server starting on http://{host}:{port}")
     socketio.run(app, host=host, port=port) 

@@ -35,7 +35,7 @@ def register_routes(app, socketio, app_config):
         
         try:
             # Get valid video formats from config
-            valid_formats = app_config['server'].get('valid_video_formats', ['.mp4', '.avi', '.mov', '.mkv'])
+            valid_formats = app_config['server']['valid_video_formats']
             
             # Validate file format
             if not is_valid_video_format(file.filename, valid_formats):

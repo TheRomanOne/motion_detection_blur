@@ -29,6 +29,9 @@ def process_and_stream_video(video_path, app_config, socketio):
     streaming_active = True
     is_paused = False
     
+    # Keep track of processes
+    processes = []
+    
     try:    
         # Get processing configuration
         processing_config = app_config.get('processing', {})
@@ -62,6 +65,13 @@ def process_and_stream_video(video_path, app_config, socketio):
             args=(detection_queue, stream_queue, app_config.get('display', {}))
         )
         
+        # Store processes in list for cleanup
+        processes = [streamer_process, detector_process, display_process]
+        
+        # Start the processes
+        for process in processes:
+            process.start()
+        
         # Function to check if processing should be paused/stopped
         def should_continue():
             return processing_active and (not is_paused)
@@ -69,7 +79,7 @@ def process_and_stream_video(video_path, app_config, socketio):
         # Start streaming processed frames to the client
         def stream_frames_to_client():
             frame_count = 0
-            socketio.emit('message', {'data': f"Processing and streaming video: {os.path.basename(video_path)}"})
+            socketio.emit('message', {'data': f"Processing and streaming video"})
             
             while streaming_active:
                 if not is_paused:
@@ -122,20 +132,14 @@ def process_and_stream_video(video_path, app_config, socketio):
                 # Brief pause to control streaming rate
                 socketio.sleep(sleep_delays.get('frame_processing', 0.05))
         
-        # Start the processes
-        streamer_process.start()
-        detector_process.start()
-        display_process.start()
-        
         # Start streaming frames in the current thread
         streaming_thread = threading.Thread(target=stream_frames_to_client)
         streaming_thread.daemon = True
         streaming_thread.start()
         
         # Wait for processes to finish (or be terminated)
-        streamer_process.join()
-        detector_process.join()
-        display_process.join()
+        for process in processes:
+            process.join()
         
         if processing_active:  # If we weren't interrupted
             socketio.emit('processing_complete', {'frames': 0})  # We don't know exact frame count
@@ -146,6 +150,12 @@ def process_and_stream_video(video_path, app_config, socketio):
         socketio.emit('message', {'data': f"Error: {str(e)}"})
         processing_active = False
         streaming_active = False
+        
+        # Clean up processes that might still be running
+        for process in processes:
+            if process.is_alive():
+                process.terminate()
+                
         cleanup_video_file(video_path)
         return
     

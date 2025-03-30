@@ -17,7 +17,7 @@
       "reconnection": true,
       "reconnection_attempts": 5,
       "reconnection_delay": 1000,
-      "transports": ["websocket", "polling"]
+      "transports": ["websocket"]
     },
     "upload": {
       "max_file_size_mb": 500,
