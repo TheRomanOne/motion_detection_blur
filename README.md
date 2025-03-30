@@ -2,7 +2,7 @@
 
 A motion detection application that processes a video in real-time to detect motion, annotate it with bounding boxes, and apply a blur effect to the detected areas.
 
-![Motion Detection App Screenshot](./screenshots/app_screenshot.png)
+![Motion Detection App Screenshot](https://github.com/TheRomanOne/motion_detection_blur/blob/master/screenshot.png?raw=true)
 
 ## Features
 
