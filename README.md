@@ -1,4 +1,4 @@
-# Motion Detection
+# Motion Detection Web App
 
 A motion detection application that processes a video in real-time to detect motion, annotate it with bounding boxes, and apply a blur effect to the detected areas.
 
