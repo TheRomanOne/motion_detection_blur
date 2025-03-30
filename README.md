@@ -32,38 +32,6 @@ A motion detection application that processes a video in real-time to detect mot
 - **CSS**: Styling and animations
 - **Responsive UI**: Real-time status updates and controls
 
-## Project Structure 
-project/
-├── backend/
-│ ├── app.py               # Main Flask application
-│ ├── config.py            # Configuration management
-│ ├── config.json          # Application configuration parameters
-│ ├── video_processor.py   # Video processing logic
-│ ├── detector.py          # Apply motion detection
-│ ├── streamer.py          # Frame extraction
-│ ├── display.py           # Visualization processing
-│ ├── file_manager.py      # File handling utilities
-│ ├── routes.py            # API routes
-│ └── socketio_events.py   # WebSocket event handlers
-│
-├── frontend/
-│ ├── public/
-│ └── src/
-│   ├── components/        # React components
-│   │ ├── VideoDisplay.js
-│   │ ├── MessageConsole.js
-│   │ ├── UploadForm.js
-│   │ └── ConnectionStatus.js
-│   ├── hooks/             # Custom React hooks
-│   │ ├── useSocket.js
-│   │ └── useFileUpload.js
-│   ├── App.js             # Main application component
-│   ├── App.css            # Styling
-│   └── setupProxy.js      # Development proxy configuration
-│
-└── requirements.txt       # Python dependencies
-
-
 ## Setup and Installation
 
 ### Backend Setup
@@ -71,7 +39,7 @@ project/
 1. Create a virtual environment:
    ```
    python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   source venv/bin/activate
    ```
 
 2. Install dependencies:
